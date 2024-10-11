@@ -11,6 +11,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {User} from '../../models/user.class';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -22,5 +23,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 })
 export class DialogAddUserComponent {
 
+user = new User();
+birthDate!: Date;
+
+saveUser() {
+  this.user.birthDate = this.birthDate.getTime();
+  console.log(this.user);
+}
 
 }
