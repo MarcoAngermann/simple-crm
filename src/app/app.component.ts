@@ -6,6 +6,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,6 +15,10 @@ import {MatDialogModule } from '@angular/material/dialog';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
+  constructor() {
+    
+  }
   title = 'simple-crm';
   
 }
