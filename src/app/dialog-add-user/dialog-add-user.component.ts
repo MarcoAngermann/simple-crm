@@ -13,6 +13,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { User } from '../../models/user.class';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -20,6 +22,7 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
+    CommonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,6 +32,7 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
     MatButtonModule,
     MatDialogTitle,
     MatDatepickerModule,
+    MatProgressBarModule,
   ],
   templateUrl: './dialog-add-user.component.html',
   styleUrls: ['./dialog-add-user.component.scss'], // Hier sollte styleUrls sein, nicht styleUrl
@@ -37,11 +41,14 @@ export class DialogAddUserComponent {
   user = new User();
   birthDate!: Date;
 
+  loading = false;
+
   constructor(private firestore: Firestore) {}
 
-  saveUser() {
+  async saveUser() {
     this.user.birthDate = this.birthDate.getTime();
     console.log(this.user);
+    this.loading = true;
   
     // Umwandlung des User-Objekts in ein einfaches Objekt
     const userData = {
@@ -59,11 +66,13 @@ export class DialogAddUserComponent {
     // Benutzer zur Sammlung hinzufügen
     addDoc(usersCollection, userData)
       .then((result) => {
+        this.loading = false;
         console.log('User added successfully!', result);
       })
       .catch((error) => {
         console.error('Error adding user:', error);
-      });
-  }
-}
+      } );
 
+    
+}
+}
