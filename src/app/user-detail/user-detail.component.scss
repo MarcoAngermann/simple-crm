@@ -1,0 +1,43 @@
+.header{
+    background-color: rgb(0, 184, 15);
+    min-height: 250px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+
+
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        object-fit: cover;
+        margin-right: 16px;
+    }
+}
+
+.user-details {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    
+
+    h1 {
+        margin-bottom: 0px;
+    }
+}
+
+.address-details {
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    p {
+        margin-bottom: 0px;
+    }
+
+    h2 {
+        margin-bottom: 0px;
+    }
+}
+

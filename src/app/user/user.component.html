@@ -1,4 +1,26 @@
-<p>user works!</p>
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <table class="user-table">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>City</th>
+        <th>Street</th>
+        <th>Zip Code</th>
+        <th>Birthday</th>
+      </tr>
+      <tr *ngFor="let user of allUsers" routerLink="/user/{{user.id}}">
+        <td>{{user.firstName}} {{user.lastName}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.city}}</td>
+        <td>{{user.street}}</td>
+        <td>{{user.zipCode}}</td>
+        <td>{{user.birthDate | date:'dd.MM.yyyy'}}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
 <button (click)="openDialog()" [matTooltip]="'Add User'" class="add-user" mat-fab color="primary"  [matTooltipPosition]="'above'">
     <mat-icon>add</mat-icon>
   </button>

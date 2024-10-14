@@ -1,0 +1,16 @@
+<mat-card class="header" appearance="outlined">
+    <mat-card-content class="user-details">
+        <img src="./assets/img/profil-avatar.png">
+        <div>
+            <h1>{{user.firstName}} {{user.lastName}}</h1>
+            <h3>{{user.email}}</h3>
+        </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined">
+    <mat-card-content class="address-details">
+        <h2>Address</h2>
+        <p> {{user.street}} </p>
+        <p> {{user.zipCode}} {{user.city}}</p>
+    </mat-card-content>
+  </mat-card>

@@ -3,3 +3,56 @@
     right: 56px;
     bottom: 56px;
 }
+
+.mat-mdc-card-content {
+    padding: 0px;
+}
+
+mat-card {
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+
+        &:first-child {
+            cursor: unset;
+
+            &:hover {
+                background-color: unset;
+            }
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+    }
+
+    td {
+        height: 48px;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+    }
+    th {
+        text-align: start;
+        color: rgba(0, 0, 0, 0.54);
+        font-weight: 500;
+
+        &:first-child {
+            padding-left: 16px;
+        }
+    }
+  }

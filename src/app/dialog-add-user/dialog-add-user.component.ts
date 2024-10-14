@@ -5,6 +5,7 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
+  MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,8 +14,9 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { User } from '../../models/user.class';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
 
 
 @Component({
@@ -33,6 +35,7 @@ import { CommonModule } from '@angular/common';
     MatDialogTitle,
     MatDatepickerModule,
     MatProgressBarModule,
+    MatCardModule,
   ],
   templateUrl: './dialog-add-user.component.html',
   styleUrls: ['./dialog-add-user.component.scss'], // Hier sollte styleUrls sein, nicht styleUrl
@@ -43,36 +46,36 @@ export class DialogAddUserComponent {
 
   loading = false;
 
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, public dialogRef: MatDialogRef <DialogAddUserComponent>) { }
 
   async saveUser() {
     this.user.birthDate = this.birthDate.getTime();
     console.log(this.user);
     this.loading = true;
-  
+
     // Umwandlung des User-Objekts in ein einfaches Objekt
     const userData = {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
+      email: this.user.email,
       birthDate: this.user.birthDate,
       street: this.user.street,
       zipCode: this.user.zipCode,
       city: this.user.city
     };
-  
+
     // Referenz zur 'users' Sammlung erstellen
     const usersCollection = collection(this.firestore, 'users');
-  
+
     // Benutzer zur Sammlung hinzufügen
     addDoc(usersCollection, userData)
       .then((result) => {
         this.loading = false;
+        this.dialogRef.close();
         console.log('User added successfully!', result);
       })
       .catch((error) => {
         console.error('Error adding user:', error);
-      } );
-
-    
-}
+      });
+  }
 }

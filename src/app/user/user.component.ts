@@ -7,22 +7,36 @@ import {DialogAddUserComponent} from '../dialog-add-user/dialog-add-user.compone
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog} from '@angular/material/dialog';
 import {User} from '../../models/user.class';
+import {MatCardModule} from '@angular/material/card';
+import {Firestore, collection, collectionData} from '@angular/fire/firestore';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [MatIconModule,MatIcon,RouterLink,MatButtonModule,MatTooltipModule, DialogAddUserComponent,MatDialogModule],
+  imports: [MatIconModule,MatIcon,RouterLink,MatButtonModule,MatTooltipModule, DialogAddUserComponent,MatDialogModule,MatCardModule,MatDialogModule,CommonModule],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.scss'
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-
   user = new User();
+  allUsers: any[] = [];
 
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private firestore: Firestore) {
 
   }
+
+  ngOnInit(): void {
+    const usersCollection = collection(this.firestore, 'users');
+    collectionData(usersCollection, { idField: 'id' }).subscribe((changes: any[]) => {
+      console.log(changes);
+      this.allUsers = changes;
+    });
+  }
+  
 
   openDialog() {
     this.dialog.open(DialogAddUserComponent);
