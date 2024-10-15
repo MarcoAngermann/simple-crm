@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -27,26 +28,44 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
-    MatDialogTitle
+    MatDialogTitle, 
   ],
   templateUrl: './dialog-edit-user.component.html',
   styleUrls: ['./dialog-edit-user.component.scss']
 })
 export class DialogEditUserComponent {
   user: User | undefined;
+  userId!:string;
   loading: boolean = false;
-  birthDate!: Date;
+  birthDate: Date | null = null;
 
-  constructor(public dialogRef: MatDialogRef<DialogEditUserComponent>) { }
+  constructor(public dialogRef: MatDialogRef<DialogEditUserComponent>, private firestore: Firestore) { }
 
-  saveUser() {
-    this.loading = true;  // Zeigt den Ladebalken an
-    // Füge hier die Logik zum Speichern des Benutzers hinzu
-    // Simuliert einen Ladevorgang:
-    setTimeout(() => {
-      this.loading = false;
-      this.dialogRef.close(this.user);  // Schließt den Dialog nach dem Speichern
-    }, 2000);  // Simuliert eine Verzögerung von 2 Sekunden
-  }
+  ngOnInit(): void {
+    if (this.user) {
+        this.birthDate = this.user.birthDateAsDate || null; // Das Geburtsdatum als Date-Objekt setzen
+    }
+}
+
+saveUser() {
+  this.loading = true;
+
+  const userDocRef = doc(this.firestore, `users/${this.userId}`);
+
+  updateDoc(userDocRef, {
+    firstName: this.user?.firstName,
+    lastName: this.user?.lastName,
+    email: this.user?.email,
+    birthDate: this.birthDate ? Math.floor(this.birthDate.getTime() / 1000) : null,
+  }).then(() => {
+    this.loading = false;
+    this.dialogRef.close(this.user);  
+  }).catch(error => {
+    console.error('Error updating user: ', error);
+    this.loading = false; 
+  });
+}
+
+
 }
 

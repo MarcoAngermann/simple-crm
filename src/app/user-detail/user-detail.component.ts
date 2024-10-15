@@ -52,14 +52,34 @@ export class UserDetailComponent {
     }
   }
 
-  editUser() {
-      const dialog = this.dialog.open(DialogEditUserComponent);
-      dialog.componentInstance.user = this.user;
-  }
+  // editUser() {
+  //     const dialog = this.dialog.open(DialogEditUserComponent);
+  //     dialog.componentInstance.user = this.user;
+  // }
 
+  // editAddress() {
+  //   const dialog = this.dialog.open(DialogEditAddressComponent);
+  //   dialog.componentInstance.user = this.user;
+  // }
+
+  editUser() {
+    const dialog = this.dialog.open(DialogEditUserComponent);
+    dialog.componentInstance.user = this.user;
+    dialog.componentInstance.userId = this.userId; // User ID setzen
+
+    dialog.afterClosed().subscribe(result => {
+        if (result) {
+            // Benutzer aktualisieren
+            this.user = result; // Die aktualisierten Daten übernehmen
+        }
+    });
+}
+
+  
   editAddress() {
     const dialog = this.dialog.open(DialogEditAddressComponent);
     dialog.componentInstance.user = this.user;
+    dialog.componentInstance.userId = this.userId; // User ID setzen
   }
 
 }

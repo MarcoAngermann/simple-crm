@@ -1,4 +1,7 @@
 export class User {
+    toJSON(): any {
+      throw new Error('Method not implemented.');
+    }
     firstName: string;
     lastName: string;
     email: string;
@@ -16,4 +19,8 @@ export class User {
         this.zipCode = obj ? obj.zipCode: 0;
         this.city = obj ? obj.city: '';
     }
+
+    get birthDateAsDate(): Date | null {
+      return this.birthDate ? new Date(this.birthDate * 1000) : null; // Umwandlung in Date-Objekt
+  }
 }

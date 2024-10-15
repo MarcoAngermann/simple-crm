@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dialog-edit-address',
@@ -15,7 +16,6 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     MatFormFieldModule,
     CommonModule,
-    MatFormFieldModule,
     FormsModule,
     MatProgressBar,
     MatDialogContent,
@@ -25,26 +25,35 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatCardModule,
     MatDialogTitle,
-    MatProgressBar,
-    MatDialogActions,
   ],
   templateUrl: './dialog-edit-address.component.html',
   styleUrls: ['./dialog-edit-address.component.scss']
 })
 export class DialogEditAddressComponent {
   user: User | undefined;
-  loading: boolean = false; // Hinzufügen der loading-Variable
+  loading: boolean = false; 
+  userId!: string;
 
-  constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>) { }
+  constructor(public dialogRef: MatDialogRef<DialogEditAddressComponent>, private firestore: Firestore) { }
 
   saveUser() {
-    this.loading = true;  // Zeigt den Ladebalken an
-    // Füge hier die Logik zum Speichern des Benutzers hinzu
-    // Simuliert einen Ladevorgang:
-    setTimeout(() => {
+    this.loading = true;
+    
+    const userDocRef = doc(this.firestore, `users/${this.userId}`); // Erstellen Sie eine Referenz zum Benutzerdokument
+
+    updateDoc(userDocRef, {
+      street: this.user?.street,
+      city: this.user?.city, 
+      zipCode: this.user?.zipCode,   
+    }).then(() => {
       this.loading = false;
       this.dialogRef.close(this.user);  // Schließt den Dialog nach dem Speichern
-    }, 2000);  // Simuliert eine Verzögerung von 2 Sekunden
+    }).catch(error => {
+      console.error('Error updating address: ', error);
+      this.loading = false; // Laden zurücksetzen im Fehlerfall
+    });
   }
 }
+
+
 
