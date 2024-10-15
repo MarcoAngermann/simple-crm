@@ -31,6 +31,7 @@
 }
 
 .address-details {
+    position: relative;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     p {
         margin-bottom: 0px;
@@ -40,4 +41,15 @@
         margin-bottom: 0px;
     }
 }
+
+.icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 

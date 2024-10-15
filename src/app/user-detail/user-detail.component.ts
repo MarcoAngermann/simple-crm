@@ -4,11 +4,17 @@ import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user.class';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
+import { DialogEditAddressComponent } from '../dialog-edit-address/dialog-edit-address.component';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatCard, MatCardContent, CommonModule, MatCardTitle],
+  imports: [MatCard, MatCardContent, CommonModule, MatCardTitle, MatIconModule, MatButtonModule, MatMenuModule, DialogEditAddressComponent, DialogEditUserComponent],
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
@@ -16,7 +22,7 @@ export class UserDetailComponent {
   userId = '';
   user: User = new User();
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore) {}
+  constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
@@ -45,5 +51,16 @@ export class UserDetailComponent {
       console.error('Error fetching user: ', error);
     }
   }
+
+  editUser() {
+      const dialog = this.dialog.open(DialogEditUserComponent);
+      dialog.componentInstance.user = this.user;
+  }
+
+  editAddress() {
+    const dialog = this.dialog.open(DialogEditAddressComponent);
+    dialog.componentInstance.user = this.user;
+  }
+
 }
 
