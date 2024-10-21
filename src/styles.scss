@@ -18,3 +18,22 @@ body {
 .mb-0 {
     margin-bottom: 0px;
 }
+
+.dialog-container {
+    padding: 24px;
+    gap: 16px;
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        
+    }
+}

@@ -32,9 +32,12 @@ import {MatCardModule} from '@angular/material/card';
     MatCardModule,
   ],
   templateUrl: './dialog-add-user.component.html',
-  styleUrls: ['./dialog-add-user.component.scss'], // Hier sollte styleUrls sein, nicht styleUrl
+  styleUrls: ['./dialog-add-user.component.scss'],
 })
 export class DialogAddUserComponent {
+  closeDialog() {
+    throw new Error('Method not implemented.');
+  }
   user = new User();
   birthDate!: Date;
 
@@ -47,7 +50,6 @@ export class DialogAddUserComponent {
     console.log(this.user);
     this.loading = true;
 
-    // Umwandlung des User-Objekts in ein einfaches Objekt
     const userData = {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -58,10 +60,8 @@ export class DialogAddUserComponent {
       city: this.user.city
     };
 
-    // Referenz zur 'users' Sammlung erstellen
     const usersCollection = collection(this.firestore, 'users');
 
-    // Benutzer zur Sammlung hinzufügen
     addDoc(usersCollection, userData)
       .then((result) => {
         this.loading = false;

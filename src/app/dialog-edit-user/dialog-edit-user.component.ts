@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressBarModule } from '@angular/material/progress-bar'; // Korrektur hier
+import { MatProgressBarModule } from '@angular/material/progress-bar'; 
 import { User } from '../../models/user.class';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
     CommonModule,
     FormsModule,
     MatFormFieldModule,
-    MatProgressBarModule, // Korrektur hier
+    MatProgressBarModule, 
     MatInputModule,
     MatButtonModule,
     MatCardModule,
@@ -43,7 +43,7 @@ export class DialogEditUserComponent {
 
   ngOnInit(): void {
     if (this.user) {
-        this.birthDate = this.user.birthDateAsDate || null; // Das Geburtsdatum als Date-Objekt setzen
+        this.birthDate = this.user.birthDateAsDate || null;
     }
 }
 

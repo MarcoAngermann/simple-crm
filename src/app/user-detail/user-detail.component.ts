@@ -40,10 +40,10 @@ export class UserDetailComponent {
       const userSnap = await getDoc(userDoc);
       
       if (userSnap.exists()) {
-        const userData = userSnap.data(); // Prüfen, ob Daten existieren
+        const userData = userSnap.data(); 
         console.log('The user is: ', userData);
         
-        this.user = new User(userData); // Daten an die User-Klasse übergeben
+        this.user = new User(userData);
       } else {
         console.log('No such user document!');
       }
@@ -52,25 +52,14 @@ export class UserDetailComponent {
     }
   }
 
-  // editUser() {
-  //     const dialog = this.dialog.open(DialogEditUserComponent);
-  //     dialog.componentInstance.user = this.user;
-  // }
-
-  // editAddress() {
-  //   const dialog = this.dialog.open(DialogEditAddressComponent);
-  //   dialog.componentInstance.user = this.user;
-  // }
-
   editUser() {
     const dialog = this.dialog.open(DialogEditUserComponent);
     dialog.componentInstance.user = this.user;
-    dialog.componentInstance.userId = this.userId; // User ID setzen
+    dialog.componentInstance.userId = this.userId; 
 
     dialog.afterClosed().subscribe(result => {
         if (result) {
-            // Benutzer aktualisieren
-            this.user = result; // Die aktualisierten Daten übernehmen
+            this.user = result;
         }
     });
 }
@@ -79,7 +68,7 @@ export class UserDetailComponent {
   editAddress() {
     const dialog = this.dialog.open(DialogEditAddressComponent);
     dialog.componentInstance.user = this.user;
-    dialog.componentInstance.userId = this.userId; // User ID setzen
+    dialog.componentInstance.userId = this.userId;
   }
 
 }

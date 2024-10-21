@@ -39,7 +39,7 @@ export class DialogEditAddressComponent {
   saveUser() {
     this.loading = true;
     
-    const userDocRef = doc(this.firestore, `users/${this.userId}`); // Erstellen Sie eine Referenz zum Benutzerdokument
+    const userDocRef = doc(this.firestore, `users/${this.userId}`);
 
     updateDoc(userDocRef, {
       street: this.user?.street,
@@ -47,10 +47,10 @@ export class DialogEditAddressComponent {
       zipCode: this.user?.zipCode,   
     }).then(() => {
       this.loading = false;
-      this.dialogRef.close(this.user);  // Schließt den Dialog nach dem Speichern
+      this.dialogRef.close(this.user);
     }).catch(error => {
       console.error('Error updating address: ', error);
-      this.loading = false; // Laden zurücksetzen im Fehlerfall
+      this.loading = false; 
     });
   }
 }

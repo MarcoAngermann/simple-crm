@@ -1,29 +1,40 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { UserComponent } from './user/user-component';
+import { Firestore } from '@angular/fire/firestore';
+import { of } from 'rxjs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 
-describe('AppComponent', () => {
+
+const mockFirestore = {
+  collection: () => ({
+    valueChanges: () => of([]),
+  }),
+};
+
+describe('UserComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        CommonModule,
+        MatDialogModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatCardModule,
+        UserComponent 
+      ],
+      providers: [{ provide: Firestore, useValue: mockFirestore }],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'simple-crm' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('simple-crm');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, simple-crm');
+  it('should create', () => {
+    const fixture = TestBed.createComponent(UserComponent);
+    const component = fixture.componentInstance;
+    expect(component).toBeTruthy();
   });
 });

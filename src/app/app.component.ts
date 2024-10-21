@@ -8,12 +8,13 @@ import {MatDialogModule } from '@angular/material/dialog';
 
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, MatToolbarModule, MatIconModule, MatSidenavModule, RouterLink, MatButtonModule,MatDialogModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
